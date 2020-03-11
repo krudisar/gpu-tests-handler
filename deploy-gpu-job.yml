@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: tf-test-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: job
+          image: gcr.io/kr-gcp-ee/kr-tf2-gpu
+          args:
+            - /bin/sh
+            - -c
+            - echo waiting for ...; sleep 20; /workspace/go.sh; sleep 5s; echo exiting...; date
+          resources:
+            limits:
+              nvidia.com/gpu: 1
+      restartPolicy: Never
+
+
