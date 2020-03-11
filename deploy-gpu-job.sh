@@ -10,6 +10,8 @@ kubectl apply -f deploy-gpu-job.yml
 pods=$(kubectl get pods --selector=job-name=$JOB_NAME --output=jsonpath='{.items[*].metadata.name}')
 echo "Job/Pod name: " $pods
 
+echo ""
+
 # wait till this K8S job is finished = all calculation are completed
 echo "Waiting for the job to completed (timeout = 15 mins) ... "
 kubectl wait --for=condition=Complete --timeout=900s job/$JOB_NAME
